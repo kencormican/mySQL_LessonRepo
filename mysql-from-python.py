@@ -13,9 +13,12 @@ connection = pymysql.connect(host='localhost',
 try:
     # Run a query
     with connection.cursor() as cursor:
-        # Updating data using the cursor.execute() method
-        cursor.execute("UPDATE Friends SET age = 22 WHERE name = 'bob';")
+        # Alternate updating data using cursor.execute()
+        # method and string interpolation
+        cursor.execute("UPDATE Friends SET age = %s WHERE name = %s;",
+                       (23, 'bob'))
         connection.commit()
+
 
 finally:
     # Close the connection, regardless of whether
