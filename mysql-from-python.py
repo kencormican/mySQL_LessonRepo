@@ -13,10 +13,10 @@ connection = pymysql.connect(host='localhost',
 try:
     # Run a query
     with connection.cursor() as cursor:
-        # Delete Many rows with cursor.executemany() method
-        rows = cursor.executemany("DELETE FROM Friends WHERE name = %s;",
-                                  ['bob', 'jim'])
+        # Delete multiple rows with cursor.execute() where in method
+        row = cursor.execute("DELETE FROM Friends WHERE name in ('jim','bob')")
         connection.commit()
+
 
 finally:
     # Close the connection, regardless of whether
