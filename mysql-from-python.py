@@ -14,8 +14,12 @@ try:
     # Run a query
     with connection.cursor() as cursor:
         # Delete multiple rows based on list of names
-        names = ['jim', 'bob']
-        cursor.execute("DELETE FROM Friends WHERE name in (%s, %s)", names)
+        list_of_names = ['fred', 'Fred']
+        # Prepare a string with same number of placeholders as in list_of_names
+        format_strings = ','.join(['%s'] * len(list_of_names))
+        cursor.execute(
+            "DELETE FROM Friends WHERE name in ({});".format(format_strings),
+            list_of_names)
         connection.commit()
 
 finally:
